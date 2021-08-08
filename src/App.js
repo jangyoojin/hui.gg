@@ -1,17 +1,17 @@
-import axios from "axios";
+import { BrowserRouter, Route } from 'react-router-dom';
+import Welcome from './Welcome';
+import UserHistory from './UserHistory';
 
-const API_BASE = 'http://localhost:3001'
+
+const API_BASE = 'http://localhost:3001';
 
 function App() {
-  axios.get(`${API_BASE}/${encodeURIComponent("유명하다")}`).then(res => {
-    axios.get(`${API_BASE}/match/${encodeURIComponent(res.data)}`).then(re => {
-      console.log(re);
-    })
-  });
-
   return (
     <div className="App">
-      <div>hi</div>
+      <BrowserRouter>
+        <Route path='/' exact component={Welcome}/>
+        <Route path='/:name' component={UserHistory}/>
+      </BrowserRouter>
     </div>
   );
 }
