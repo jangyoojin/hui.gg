@@ -1,0 +1,11 @@
+.headerLogo {
+    font-family: Arial, sans-serif;
+    font-size: 7vh;
+    text-decoration: none;
+    color: black;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
