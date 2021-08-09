@@ -5,7 +5,7 @@ import Header from './Header';
 
 function App() {
   return (
-    <div className="App">
+    <div style={{"height": "100%"}} className="App">
       <BrowserRouter>
         <Header />
         <Route path='/' exact component={Welcome}/>

@@ -31,7 +31,7 @@ app.get("/history/:puuid", cors(), (req, res) => {
 
     console.log(`Search rank game history of ${id}`);
 
-    const count = 10;
+    const count = 15;
     const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${encodeURIComponent(id)}/ids?type=ranked&start=0&count=${count}&api_key=${API_KEY}`;
     
     axios.get(url).then(async response => {
