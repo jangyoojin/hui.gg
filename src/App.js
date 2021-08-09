@@ -1,16 +1,15 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import Welcome from './Welcome';
-import UserHistory from './UserHistory';
-
-
-const API_BASE = 'http://localhost:3001';
+import UserPage from './UserPage';
+import Header from './Header';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Header />
         <Route path='/' exact component={Welcome}/>
-        <Route path='/:name' component={UserHistory}/>
+        <Route path='/:name' component={UserPage}/>
       </BrowserRouter>
     </div>
   );
