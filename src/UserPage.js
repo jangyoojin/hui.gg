@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import MatchList from './MatchList';
 
 const API_BASE = 'http://localhost:3001';
 
@@ -9,20 +10,30 @@ export default function UserPage() {
     const [ history, setHistory ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ notFound, setNotFound ] = useState(false);
+    const [ puuid, setPuuid ] = useState('');
 
     useEffect(() => {
         setLoading(true);
         console.log('fetching user data...');
         axios.get(`${API_BASE}/summoner/${name}`).then(res => {
-            console.log('fetched!', name);
-            const puuid = res.data;
-            axios.get(`${API_BASE}/history/${puuid}`).then(re => {
-                console.log(re);
-                setHistory(re.data);
+            const id = res.data;
+            console.log('fetched summoner!', id);
+            setPuuid(id);
+            console.log('fetching match history...');
+            axios.get(`${API_BASE}/history/${id}`).then(re => {
+                const his = re.data;
+                console.log('fetched history!', his);
+                setHistory(his);
+                setLoading(false);
+            }).catch(error => {
+                // match histroy fetch failed
+                console.log('fetch failed!', error);
+                setNotFound(true);
                 setLoading(false);
             });
-        }).catch(res => {
-            console.log('fetch failed!', res);
+        }).catch(error => {
+            // summoner fetch failed
+            console.log('fetch failed!', error);
             setNotFound(true);
             setLoading(false);
         });
@@ -39,7 +50,7 @@ export default function UserPage() {
                         ? <div>{`User(${name}) not found`}</div>
                         : <div>
                             <div>match history of {name}</div>
-                            <div>{history}</div>
+                            <MatchList puuid={puuid} list={history} />
                         </div>
                 }
             </div>

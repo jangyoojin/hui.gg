@@ -1,0 +1,17 @@
+.match__win {
+    border: 1px black solid;
+    background-color:rgba(0, 0, 255, 0.5);
+    opacity: 0.5;
+    margin: 1rem;
+}
+
+.match__lose {
+    border: 1px black solid;
+    background-color:rgba(255, 0, 0, 0.5);
+    opacity: 0.5;
+    margin: 1rem;
+}
+
+.me {
+    font-weight: bold;
+}
