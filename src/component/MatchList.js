@@ -7,8 +7,17 @@ export default function MatchList({ puuid, list }) {
                 const key = elem.gameId;
                 const participants = elem.participants;
                 const user = elem.participants.find(el => el.puuid === puuid);
-                
-                return (<Match key={key} game={key} user={user} participants={participants}/>);
+                const started = elem.gameCreation;
+                const duration = elem.gameDuration;
+
+                // console.log(key, participants, user, started, duration);
+                return (<Match 
+                    key={key} 
+                    started={started} 
+                    duration={duration} 
+                    game={key} 
+                    user={user} 
+                    participants={participants} />);
             })
         }</div>
     ); 

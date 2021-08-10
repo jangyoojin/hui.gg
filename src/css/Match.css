@@ -1,17 +1,102 @@
-.match__win {
+.Match {
+    font-family: Arial sans-serif;
     border: 1px black solid;
-    background-color:rgba(0, 0, 255, 0.5);
-    opacity: 0.5;
     margin: 1rem;
 }
 
-.match__lose {
-    border: 1px black solid;
-    background-color:rgba(255, 0, 0, 0.5);
-    opacity: 0.5;
-    margin: 1rem;
+.match__card__lost {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    background-color: black;
+}
+
+.match__card__won {
+    display: flex;
+    justify-content: space-between;
+}
+
+.match__champion {
+    font-family: Arial;
+    font-size: 2.7rem;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.match__card__right {
+    align-items: space-between;
+}
+
+.match__kda {
+    font-family: Arial;
+    margin-left: 0.6rem;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.match__won {
+    font-family: Arial;
+    font-size: 2rem;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+table {
+    width: 100%;
+}
+
+tbody {
+    width: 100%;
+}
+
+tr {
+    width: 100%;
+}
+
+td {
+    font-family: Arial;
+    /* width: 30%; */
+    padding-top: 0.7rem;
+}
+
+/* .match__card__open {
+    padding: 1rem;
+} */
+
+.match__detail__red {
+    padding: 1rem;
+}
+
+.match__detail__blue {
+    padding: 1rem;
+}
+
+.lose {
+    color: white;
+    background-color: black;
 }
 
 .me {
-    font-weight: bold;
+    font-weight: 900;
+}
+
+.match__detail__kda {
+    padding-right: 0.1rem;
+}
+
+.match__time {
+    padding-right: 0.5rem;
+    font-family: Arial;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.teamname {
+    font-family: Arial;
+}
+
+.match__detail__summoner {
+    width: 37%;
 }

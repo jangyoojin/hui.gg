@@ -17,16 +17,16 @@ export default function UserProfile({ summonerInfo, list }) {
                 user.summonerName === summonerInfo[0].summonerName).win).length;
         setWins(winCount);
         
-    }, [ summonerInfo ]);
+    }, [ summonerInfo, list ]);
 
     return (
         <div className='UserProfile'>
             <div className='UserProfile__left'>
-                <div className='UserProfile__tier'>{`SOLO: ${rankData.tier} ${rankData.rank}`}</div>
                 <div className='UserProfile__tier'>{`TEAM: ${flexData.tier} ${flexData.rank}`}</div>
+                <div className='UserProfile__tier'>{`SOLO: ${rankData.tier} ${rankData.rank}`}</div>
                 <div className='UserProfile__username'>{username}</div>
             </div>
-            <div className='UserProfile__stat'>{`${wins}/${totalMatchNum}`}</div>
+            <div className='UserProfile__stat'>{`${((wins / totalMatchNum) * 100).toFixed(1)}%`}</div>
         </div>
     );
 }

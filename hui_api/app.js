@@ -4,8 +4,8 @@ const cors = require('cors');
 const axios = require('axios');
 
 
-const API_KEY = String(process.env.RIOT_API_KEY);
-const COUNT = Number(process.env.REACT_APP_MATCH_COUNT);
+const API_KEY = process.env.RIOT_API_KEY;
+const COUNT = process.env.REACT_APP_MATCH_COUNT;
 
 const app = express();
 app.use(express.json());
@@ -39,45 +39,52 @@ app.get("/summonerInfo/:id", cors(), (req, res) => {
     });
 });
 
-//get match history with puuid
-app.get("/history/:puuid/:accountId", cors(), (req, res) => {
+//get match history with accountId (legacy)
+app.get("/history_v4/:accountId", cors(), (req, res) => {
 
-    const id = String(req.params.puuid);
     const accountId = req.params.accountId;
 
-    console.log(`Search rank game history of ${id}, ${accountId}`);
+    console.log(`Search rank game history of ${accountId}`);
 
-    const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${encodeURIComponent(id)}/ids?type=ranked&start=0&count=${COUNT}&api_key=${API_KEY}`;
+    const url_v4 = `https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=${COUNT}&api_key=${API_KEY}`;
+    axios.get(url_v4).then((resp) => {
+        const matches = resp.data.matches;
+        const URL_BASE = 'https://kr.api.riotgames.com/lol/match/v4/matches';
+        // console.log(matches);
+        Promise.all(matches.map(elem => axios.get(`${URL_BASE}/${elem.gameId}?api_key=${API_KEY}`))).then(results => {
+            console.log("success (match history)");
+            res.status(200).send(results.map(el => el.data));
+        }).catch((error) => {
+            res.status(500).send(error);
+        });
+    }).catch((error) => {
+        res.send(error);
+    });
+});
+
+// get match history with puuid
+app.get("/history_v5/:puuid", cors(), (req, res) => {
+
+    const id = req.params.puuid;
+
+    console.log(`Search rank game history_v5 of ${id}`);
+
+    const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${id}/ids?start=0&count=${COUNT}&api_key=${API_KEY}`;
     
-    axios.get(url).then(async response => {
-        console.log('success (match id list)');
+    axios.get(url).then(resp => {
+        const matches = resp.data;
         const URL_BASE = 'https://asia.api.riotgames.com/lol/match/v5/matches';
-        const matches = response.data;
-
+        console.log(matches);
         Promise.all(matches.map(elem => axios.get(`${URL_BASE}/${elem}?api_key=${API_KEY}`))).then(results => {
             console.log("success (match history)");
-            res.status(200).send(results.map(el => el.data.info));
-        }).catch(err => {
-            console.log("fail");
-            res.status(500).send(err);
+            const data = results.map(el => el.data.info);
+            res.status(200).send(data);
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
         });
-    }).catch(error => {
-        // v5 api failed, try v4
-        console.log("match v5 failed trying v4...");
-        const url_v4 = `https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?endIndex=${COUNT}&api_key=${API_KEY}`;
-        axios.get(url_v4).then((resp) => {
-            const matches = resp.data.matches;
-            const URL_BASE = 'https://kr.api.riotgames.com/lol/match/v4/matches';
-
-            // console.log(matches);
-            Promise.all(matches.map(elem => axios.get(`${URL_BASE}/${elem.gameId}?api_key=${API_KEY}`))).then(results => {
-                console.log("success (match history)", results);
-                res.status(200).send(results.map(el => el.data));
-            });
-        }).catch(() => {
-            console.log('v4 failed');
-            res.status(error.response.data.status.status_code).send(error.response.data);
-        });
+    }).catch((error) => {
+        res.send(error);
     });
 });
 

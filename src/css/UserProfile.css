@@ -4,27 +4,28 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    flex-direction: row;
 }
 
 .UserProfile__left {
     display: flex;
-    flex-direction: column;
     align-items:stretch;
+    flex-direction: column-reverse;
 }
 
 .UserProfile__tier {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: normal;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
 }
 
 .UserProfile__username {
-    font-size: 3rem;
+    font-size: 1.8rem;
     font-weight: bolder;
 }
 
 .UserProfile__stat {
-    font-size: 7rem;
+    font-size: 4.5rem;
     padding-bottom: 0;
     margin-bottom: 0;
 }

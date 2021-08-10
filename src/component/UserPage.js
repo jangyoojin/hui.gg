@@ -21,7 +21,7 @@ export default function UserPage() {
             console.log(res.data);
             const id = res.data.puuid;
             const summonerId = res.data.id;
-            const accountId = res.data.accountId;
+            // const accountId = res.data.accountId;
             console.log('fetched summoner!');
             setPuuid(id);
             console.log('fetching summoner info...');
@@ -36,8 +36,9 @@ export default function UserPage() {
                 setLoading(false);
             });
             console.log('fetching match history...');
-            axios.get(`${API_BASE}/history/${id}/${accountId}`).then(re => {
+            axios.get(`${API_BASE}/history_v5/${id}`).then(re => {
                 const his = re.data;
+                console.log(his);
                 setHistory(his);
                 console.log('fetched history!');
                 setLoading(false);
