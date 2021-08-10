@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import MatchList from './MatchList';
 import UserProfile from './UserProfile';
+import '../css/UserPage.css';
 
 const API_BASE = `http://${process.env.REACT_APP_PUBLIC_URL}:3001`;
 
@@ -66,7 +67,7 @@ export default function UserPage() {
             : <div className='UserPage'>
                 {
                     notFound 
-                        ? <div>{`User(${name}) not found`}</div>
+                        ? <div align='center' className='notFound'>Not Found!</div>
                         : <div>
                             <UserProfile summonerInfo={summonerInfo} list={history}/>
                             <MatchList puuid={puuid} list={history} />
