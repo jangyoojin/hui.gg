@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './css/Match.css';
+import '../css/Match.css';
 
 export default function Match({ game, user, participants }) {    
     const [ open, setOpen ] = useState(false);
@@ -65,7 +65,7 @@ export default function Match({ game, user, participants }) {
     };
 
     useEffect(() => {
-        console.log(user);
+        // console.log(user);
         setRed(participants.filter(player => player.teamId === 200));
         setBlue(participants.filter(player => player.teamId === 100));
     }, [ game, user, participants ]);

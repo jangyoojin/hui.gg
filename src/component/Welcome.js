@@ -1,6 +1,6 @@
 import { useState } from "react";
-import './css/Welcome.css';
-import search from './img/search.svg';
+import '../css/Welcome.css';
+import search from '../img/search.svg';
 
 export default function Welcome({ history, location, match }) {
     const [summonerName, setSummonerName ] = useState('');

@@ -1,6 +1,8 @@
 .headerLogo {
     font-family: Arial, sans-serif;
     font-size: 2rem;
+    margin-top: 0.5rem;
+    margin-left: 00.5rem;
     text-decoration: none;
     color: black;
     -ms-user-select: none; 
