@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import MatchList from './MatchList';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = `http://${process.env.REACT_APP_PUBLIC_URL}:3001`;
 
 export default function UserPage() {
     const { name } = useParams();
