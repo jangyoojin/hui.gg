@@ -1,62 +1,84 @@
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import MatchList from './MatchList';
 import UserProfile from './UserProfile';
 import '../css/UserPage.css';
-
-const API_BASE = `http://${process.env.REACT_APP_PUBLIC_URL}:3001`;
+import { getSummonerDataByName, getLeagueDataByID, getMatchHistoryByAccountId } from '../api/api.js';
 
 export default function UserPage() {
     const { name } = useParams();
-    const [ history, setHistory ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ notFound, setNotFound ] = useState(false);
-    const [ puuid, setPuuid ] = useState('');
-    const [ summonerInfo, setSummonerInfo ] = useState({});
 
-    useEffect(() => {
+    const [ history, setHistory ] = useState([]);
+    const [ summonerId, setSummonerId ] = useState('');
+    // const [ puuid, setPuuid ] = useState(''); // this is for lol api v5
+    const [ leagueInfo, setLeagueInfo ] = useState([]);
+
+    // eslint-disable-next-line
+    useEffect(async () => {
         setLoading(true);
         console.log('fetching user data...');
-        axios.get(`${API_BASE}/summoner/${name}`).then(res => {
-            console.log(res.data);
-            const id = res.data.puuid;
-            const summonerId = res.data.id;
-            // const accountId = res.data.accountId;
-            console.log('fetched summoner!');
-            setPuuid(id);
-            console.log('fetching summoner info...');
-            axios.get(`${API_BASE}/summonerInfo/${summonerId}`).then((re) => {
-                const info = re.data;
-                console.log('fetched summoner info!');
-                setSummonerInfo(info);
-            }).catch((error) => {
-                // summoner info fetch failed
-                console.log('fetch failed!', error);
-                setNotFound(true);
-                setLoading(false);
-            });
-            console.log('fetching match history...');
-            axios.get(`${API_BASE}/history_v5/${id}`).then(re => {
-                const his = re.data;
-                console.log(his);
-                setHistory(his);
-                console.log('fetched history!');
-                setLoading(false);
-            }).catch(error => {
-                // match histroy fetch failed
-                console.log('fetch failed!', error);
-                setNotFound(true);
-                setLoading(false);
-            });
 
-
-        }).catch(error => {
-            // summoner fetch failed
-            console.log('fetch failed!', error);
+        let summoner;
+        try {
+            summoner = await getSummonerDataByName(name);
+        } catch (error) {
+            console.log('fetching user data failed!', error);
             setNotFound(true);
             setLoading(false);
-        });
+        }
+        if(summoner) {
+            console.log('featched user data', summoner);
+            // const _puuid = summoner.puuid;
+            const _id = summoner.id;
+            const _accountId = summoner.accountId;
+            // setPuuid(_puuid);
+            setSummonerId(_id);
+
+            let leagueData;
+            console.log('fetching user league data...');
+            try {
+                leagueData = await getLeagueDataByID(_id);
+            }
+            catch(error) {
+                console.log('fetching user league data failed!', error);
+                setNotFound(true);
+                setLoading(false);
+            }
+            if(leagueData) {
+                console.log('fetched league data', leagueData);
+                setLeagueInfo(leagueData);
+
+                let matches;
+                console.log('fetching match history...');
+                try {
+                    matches = await getMatchHistoryByAccountId(_accountId);
+                }
+                catch(error) {
+                    setNotFound(true);
+                    setLoading(false);
+                }
+                if(matches) {
+                    console.log('fetched match history', matches);
+                    setHistory(matches);
+                    setLoading(false);
+                }
+                else {
+                    setNotFound(true);
+                    setLoading(false);
+                }
+            }
+            else {
+                setNotFound(true);
+                setLoading(false);
+            }
+        }
+        else {
+            setNotFound(true);
+            setLoading(false);
+        }
     }, [ name ]);
 
 
@@ -69,8 +91,8 @@ export default function UserPage() {
                     notFound 
                         ? <div align='center' className='notFound'>Not Found!</div>
                         : <div>
-                            <UserProfile summonerInfo={summonerInfo} list={history}/>
-                            <MatchList puuid={puuid} list={history} />
+                            <UserProfile leagueInfo={leagueInfo} list={history}/>
+                            <MatchList id={summonerId} list={history} />
                         </div>
                 }
             </div>

@@ -19,6 +19,7 @@ export default function Welcome({ history, location, match }) {
         <div className='Welcome'>
             <div className='logo'>Hui.GG</div>
             <form 
+                autoComplete="off"
                 className='searchBar'
                 onSubmit={onSearch}>
                 <input 

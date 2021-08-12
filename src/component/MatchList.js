@@ -1,16 +1,15 @@
 import Match from './Match';
 
-export default function MatchList({ puuid, list }) {
+export default function MatchList({ id, list }) {
     return (
         <div className='matchList'>{
             list.map(elem => {
                 const key = elem.gameId;
-                const participants = elem.participants;
-                const user = elem.participants.find(el => el.puuid === puuid);
+                const participants = elem.participants.map((participant, idx) => Object.assign({}, participant, elem.participantIdentities[idx].player));
+                const user = participants.find(participant => participant.summonerId === id);
                 const started = elem.gameCreation;
                 const duration = elem.gameDuration;
 
-                // console.log(key, participants, user, started, duration);
                 return (<Match 
                     key={key} 
                     started={started} 

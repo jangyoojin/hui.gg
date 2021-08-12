@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../css/UserProfile.css';
 
-export default function UserProfile({ summonerInfo, list }) {
+export default function UserProfile({ leagueInfo, list }) {
     const [ rankData, setRankData ] = useState({});
     const [ flexData, setFlexData ] = useState({});
     const [ username, setUsername ] = useState('');
@@ -9,15 +9,15 @@ export default function UserProfile({ summonerInfo, list }) {
     const totalMatchNum = list.length;
 
     useEffect(() => {
-        setUsername(summonerInfo[0].summonerName);
-        setRankData(summonerInfo.find(el => el.queueType === "RANKED_SOLO_5x5"));
-        setFlexData(summonerInfo.find(el => el.queueType === "RANKED_FLEX_SR")|| { tier: 'NO DATA', rank: ''});
-        const winCount = list.filter(match =>
-            match.participants.find(user =>
-                user.summonerName === summonerInfo[0].summonerName).win).length;
+        const name = leagueInfo[0].summonerName;
+        setUsername(name);
+        setRankData(leagueInfo.find(el => el.queueType === "RANKED_SOLO_5x5"));
+        setFlexData(leagueInfo.find(el => el.queueType === "RANKED_FLEX_SR")|| { tier: 'NO DATA', rank: ''});
+        const winCount = list.filter(match => match.participants[
+            match.participantIdentities.find(participant => participant.player.summonerName === name).participantId - 1
+        ].stats.win).length;
         setWins(winCount);
-        
-    }, [ summonerInfo, list ]);
+    }, [ leagueInfo, list ]);
 
     return (
         <div className='UserProfile'>
