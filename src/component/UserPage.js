@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import MatchList from './MatchList';
 import UserProfile from './UserProfile';
 import '../css/UserPage.css';
-import { getSummonerDataByName, getLeagueDataByID, getMatchHistoryByAccountId } from '../api/api.js';
+import axios from 'axios';
+
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 export default function UserPage() {
     const { name } = useParams();
@@ -23,24 +25,24 @@ export default function UserPage() {
 
         let summoner;
         try {
-            summoner = await getSummonerDataByName(name);
+            summoner = await axios.get(`${API_BASE}/summoner/${name}`);
         } catch (error) {
             console.log('fetching user data failed!', error);
             setNotFound(true);
             setLoading(false);
         }
         if(summoner) {
-            console.log('featched user data', summoner);
-            // const _puuid = summoner.puuid;
-            const _id = summoner.id;
-            const _accountId = summoner.accountId;
+            console.log('featched user data', summoner.data);
+            // const _puuid = summoner.data.puuid;
+            const _id = summoner.data.id;
+            const _accountId = summoner.data.accountId;
             // setPuuid(_puuid);
             setSummonerId(_id);
 
             let leagueData;
             console.log('fetching user league data...');
             try {
-                leagueData = await getLeagueDataByID(_id);
+                leagueData = await axios.get(`${API_BASE}/summonerData/${_id}`);
             }
             catch(error) {
                 console.log('fetching user league data failed!', error);
@@ -48,21 +50,21 @@ export default function UserPage() {
                 setLoading(false);
             }
             if(leagueData) {
-                console.log('fetched league data', leagueData);
-                setLeagueInfo(leagueData);
+                console.log('fetched league data', leagueData.data);
+                setLeagueInfo(leagueData.data);
 
                 let matches;
                 console.log('fetching match history...');
                 try {
-                    matches = await getMatchHistoryByAccountId(_accountId);
+                    matches = await axios.get(`${API_BASE}/match/${_accountId}`);
                 }
                 catch(error) {
                     setNotFound(true);
                     setLoading(false);
                 }
                 if(matches) {
-                    console.log('fetched match history', matches);
-                    setHistory(matches);
+                    console.log('fetched match history', matches.data);
+                    setHistory(matches.data);
                     setLoading(false);
                 }
                 else {
