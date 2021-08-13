@@ -6,7 +6,7 @@ import UserProfile from './UserProfile';
 import '../css/UserPage.css';
 import axios from 'axios';
 
-const API_BASE = process.env.REACT_APP_API_BASE;
+const API_BASE = 'https://141.223.109.55:3001';
 
 export default function UserPage() {
     const { name } = useParams();
