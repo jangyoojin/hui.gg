@@ -177,7 +177,7 @@ export default function Match({ started, duration, game, user, participants }) {
     const renderRed = () => {
         const tableContent = red.map(player => {
             return (
-                <tr key={player.puuid} className={player.summonerName === user.summonerName ? `me` : ''}>
+                <tr key={player.summonerName} className={player.summonerName === user.summonerName ? `me` : ''}>
                     <td className='match__detail__summoner'>{player.summonerName}</td>
                     <td className='match__detail__champion'>{getChampionName(player.championId)}</td>
                     <td align='right' className='match__detail__kda'>{stringifyKDA(player.stats.kills, player.stats.deaths, player.stats.assists)}</td>
@@ -204,7 +204,7 @@ export default function Match({ started, duration, game, user, participants }) {
     const renderBlue = () => {
         const tableContent = blue.map(player => {
             return (
-                <tr key={player.puuid} className={player.summonerName === user.summonerName ? `me` : ''}>
+                <tr key={player.summonerName} className={player.summonerName === user.summonerName ? `me` : ''}>
                     <td className='match__detail__summoner'>{player.summonerName}</td>
                     <td className='match__detail__champion'>{getChampionName(player.championId)}</td>
                     <td align='right' className='match__detail__kda'>{stringifyKDA(player.stats.kills, player.stats.deaths, player.stats.assists)}</td>

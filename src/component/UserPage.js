@@ -85,7 +85,7 @@ export default function UserPage() {
 
     return (
         loading 
-            ? <div>loading</div> 
+            ? <div align='center' className='Loading'>loading</div> 
             : <div className='UserPage'>
                 {
                     notFound 

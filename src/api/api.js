@@ -59,21 +59,22 @@ export async function getMatchHistoryByAccountId(accountId) {
     return history;
 }
 
+
 // get match history with puuid(using v5 api)
-export function getMatchHistoryByPuuid(puuid) {
-    const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${COUNT}&api_key=${API_KEY}`;
-    axios.get(url).then(response => {
-            const matches = response.data;
-            const URL_BASE = 'https://asia.api.riotgames.com/lol/match/v5/matches';
+// export function getMatchHistoryByPuuid(puuid) {
+//     const url = `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=${COUNT}&api_key=${API_KEY}`;
+//     axios.get(url).then(response => {
+//             const matches = response.data;
+//             const URL_BASE = 'https://asia.api.riotgames.com/lol/match/v5/matches';
             
-            Promise.all(matches.map(elem => axios.get(`${URL_BASE}/${elem}?api_key=${API_KEY}`))).then(results => {
-                const data = results.map(el => el.data.info);
-                return data;
-        }).catch((error) => {
-            throw error;
-        });
-    }).catch((error) => {
-        throw error;
-    });
-}
+//             Promise.all(matches.map(elem => axios.get(`${URL_BASE}/${elem}?api_key=${API_KEY}`))).then(results => {
+//                 const data = results.map(el => el.data.info);
+//                 return data;
+//         }).catch((error) => {
+//             throw error;
+//         });
+//     }).catch((error) => {
+//         throw error;
+//     });
+// }
 
