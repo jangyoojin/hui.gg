@@ -6,7 +6,7 @@ import Header from './Header';
 function App() {
   return (
     <div style={{"height": "100%"}} className="App">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header />
         <Route path='/' exact component={Welcome}/>
         <Route path='/:name' component={UserPage}/>
