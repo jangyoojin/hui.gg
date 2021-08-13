@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/huijjj.github.io/static/css/main.e700bd2b.chunk.css",
-    "main.js": "/huijjj.github.io/static/js/main.95150eca.chunk.js",
-    "main.js.map": "/huijjj.github.io/static/js/main.95150eca.chunk.js.map",
-    "runtime-main.js": "/huijjj.github.io/static/js/runtime-main.b10b7835.js",
-    "runtime-main.js.map": "/huijjj.github.io/static/js/runtime-main.b10b7835.js.map",
-    "static/js/2.785ac1a5.chunk.js": "/huijjj.github.io/static/js/2.785ac1a5.chunk.js",
-    "static/js/2.785ac1a5.chunk.js.map": "/huijjj.github.io/static/js/2.785ac1a5.chunk.js.map",
-    "index.html": "/huijjj.github.io/index.html",
-    "static/css/main.e700bd2b.chunk.css.map": "/huijjj.github.io/static/css/main.e700bd2b.chunk.css.map",
-    "static/js/2.785ac1a5.chunk.js.LICENSE.txt": "/huijjj.github.io/static/js/2.785ac1a5.chunk.js.LICENSE.txt",
-    "static/media/search.9ed73ca1.svg": "/huijjj.github.io/static/media/search.9ed73ca1.svg"
+    "main.css": "/hui.gg/static/css/main.e700bd2b.chunk.css",
+    "main.js": "/hui.gg/static/js/main.8636abbd.chunk.js",
+    "main.js.map": "/hui.gg/static/js/main.8636abbd.chunk.js.map",
+    "runtime-main.js": "/hui.gg/static/js/runtime-main.3bd4c993.js",
+    "runtime-main.js.map": "/hui.gg/static/js/runtime-main.3bd4c993.js.map",
+    "static/js/2.785ac1a5.chunk.js": "/hui.gg/static/js/2.785ac1a5.chunk.js",
+    "static/js/2.785ac1a5.chunk.js.map": "/hui.gg/static/js/2.785ac1a5.chunk.js.map",
+    "index.html": "/hui.gg/index.html",
+    "static/css/main.e700bd2b.chunk.css.map": "/hui.gg/static/css/main.e700bd2b.chunk.css.map",
+    "static/js/2.785ac1a5.chunk.js.LICENSE.txt": "/hui.gg/static/js/2.785ac1a5.chunk.js.LICENSE.txt",
+    "static/media/search.9ed73ca1.svg": "/hui.gg/static/media/search.9ed73ca1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.b10b7835.js",
+    "static/js/runtime-main.3bd4c993.js",
     "static/js/2.785ac1a5.chunk.js",
     "static/css/main.e700bd2b.chunk.css",
-    "static/js/main.95150eca.chunk.js"
+    "static/js/main.8636abbd.chunk.js"
   ]
 }
