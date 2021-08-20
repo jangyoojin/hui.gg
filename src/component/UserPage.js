@@ -6,7 +6,7 @@ import UserProfile from './UserProfile';
 import '../css/UserPage.css';
 import axios from 'axios';
 
-const API_BASE = 'https://huijongzip.ga:3001';
+const API_BASE = 'https://141.223.109.55:3001';
 
 export default function UserPage() {
     const { name } = useParams();
@@ -93,7 +93,7 @@ export default function UserPage() {
                     notFound 
                         ? <div align='center' className='notFound'>Not Found!</div>
                         : <div>
-                            <UserProfile leagueInfo={leagueInfo} list={history}/>
+                            <UserProfile name={name} leagueInfo={leagueInfo} list={history}/>
                             <MatchList id={summonerId} list={history} />
                         </div>
                 }
